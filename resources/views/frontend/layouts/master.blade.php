@@ -21,7 +21,7 @@
 
     <!--yandex maps -->
     <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
-    <script src="{{ asset('assets/js/clusterer_icon_hover.js') }}" type="text/javascript"></script>
+    <!-- <script src="{{ asset('assets/js/clusterer_icon_hover.js') }}" type="text/javascript"></script> -->
 </head>
 <body>
 	@include('frontend.partials._header')
