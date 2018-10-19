@@ -20,9 +20,9 @@ Route::get('/', 'SiteController@index');
 
 Auth::routes();
 
-Route::get('home', 'HomeController@index');
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function(){
 
-Route::group(['prefix' => 'admin','namespace' => 'admin', 'middleware' => ['auth']], function(){
+	Route::get('/', 'HomeController@index');
 
 	Route::get('admin/businesses', ['as'=> 'admin.businesses.index', 'uses' => 'Admin\BusinessController@index']);
 	Route::post('admin/businesses', ['as'=> 'admin.businesses.store', 'uses' => 'Admin\BusinessController@store']);
