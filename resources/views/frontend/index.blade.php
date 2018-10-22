@@ -7,7 +7,7 @@
 	<div class="map-container">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 style="text-align: center;">Карта  развития наукоемкой экономики в регионах Казахстана</h1>
+				<h1 style="text-align: center;">Hello world</h1>
 				<div id="map"></div>
 			</div>
 		</div>
@@ -58,7 +58,7 @@
 
 		var getPointData = function (balloonContentBody, clusterCaption) {
 		    return {
-		    balloonContentBody: 'балун <strong>метки ' + balloonContentBody + '</strong>',
+		    balloonContentBody: 'Компания <strong> ' + balloonContentBody + '</strong>',
 		    clusterCaption: 'метка <strong>' + clusterCaption + '</strong>'
 		    };
 		},
@@ -79,9 +79,11 @@
 
 				@foreach($businesses as $business)
 		            {
-		                balloonContentBody: {{ $business->name }}
-		                clusterCaption: {{ $business->name }},
-		                coordinates: '{{ $business->latitude.','.$business->longitude }}'
+		                balloonContentBody: '{{ $business->name }}',
+		                clusterCaption: '{{ $business->name }}',
+		                coordinates: [
+		                		{{ $business->latitude.','.$business->longitude }}
+		                	],
 		            },
 		       
 		        @endforeach
