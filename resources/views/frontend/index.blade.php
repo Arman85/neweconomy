@@ -56,10 +56,10 @@
 		}
 		});
 
-		var getPointData = function (balloonContentBody, clusterCaption) {
+		var getPointData = function (index) {
 		    return {
-		    balloonContentBody: 'балун <strong>метки ' + balloonContentBody + '</strong>',
-		    clusterCaption: 'метка <strong>' + clusterCaption + '</strong>'
+		    balloonContentBody: 'балун <strong>метки ' + index + '</strong>',
+		    clusterCaption: 'метка <strong>' + index + '</strong>'
 		    };
 		},
 
@@ -69,6 +69,8 @@
 		};
 		},
 
+		businesses = {!! $businesses !!};
+
 		points = [
 			
 				{{--@foreach($businesses as $business)
@@ -77,29 +79,16 @@
 					],
 				@endforeach--}}
 
-				@foreach($businesses as $business)
-		            {
-		                balloonContentBody: {{ $business->description }}
-		                clusterCaption: {{ $business->name }},
-		                coordinates: '{{ $business->latitude.','.$business->longitude }}'
-		            },
-		       
-		        @endforeach
+			businesses.forEach(function(item, i, businesses) {
+			  alert( i + ": " + item + " (массив:" + businesses + ")" );
+			})
 			
 		],
 		geoObjects = [];
 
-		{{--for(var i = 0, len = points.length; i < len; i++) {
-		geoObjects[i] = new ymaps.Placemark(points[i], getPointData(i), getPointOptions());
-		}--}}
-
 		for(var i = 0, len = points.length; i < len; i++) {
-	      geoObjects[i] = new ymaps.Placemark(
-	         points[i].coordinates, 
-	         getPointData(points[i].balloonContentBody, points[i].clusterCaption), 
-	         getPointOptions()
-	      );
-	    }
+		geoObjects[i] = new ymaps.Placemark(points[i], getPointData(i), getPointOptions());
+		}
 
 		clusterer.add(geoObjects);
 		myMap.geoObjects.add(clusterer);
@@ -108,4 +97,11 @@
 		checkZoomRange: true
 		});
 	});
+
+	{{--var businesses = {!! $businesses !!}
+	for(var key in businesses)
+	{
+		console.log(key, businesses[key]);
+	}--}}
+
 @endsection

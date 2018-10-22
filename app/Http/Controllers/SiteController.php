@@ -11,8 +11,8 @@ class SiteController extends Controller
     //
     public function index()
     {
-    	//$businesses = Business::all()->toJson();
-    	$businesses = Business::all();
+    	$businesses = Business::all()->toJson();
+    	//$businesses = Business::all();
     	return view('frontend.index', compact('businesses'));
     }
     
