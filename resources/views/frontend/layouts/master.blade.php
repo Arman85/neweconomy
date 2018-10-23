@@ -32,6 +32,7 @@
 
 	<script src="{{ asset('assets/js/popper.min.js') }}"></script>
 	<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+	<script src="{{ asset('assets/js/myscript.js') }}"></script>
 
     <!-- Other -->
 	<script>

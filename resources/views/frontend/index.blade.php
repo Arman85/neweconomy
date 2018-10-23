@@ -8,7 +8,19 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<h1 style="text-align: center;">Hello world</h1>
-				<div id="map"></div>
+				<!-- Tab links -->
+				<div class="tab">
+					<button class="tablinks active" onclick="openCity(event, 'map')">Карта</button>
+					<button class="tablinks" onclick="openCity(event, 'List')">Список</button>
+				</div>
+				<!-- Tab content -->
+				<div id="map" class="tabcontent" style="display: block"></div>
+				<div id="List" class="tabcontent">
+					<div class="listContent">
+						<h3 class="third-title">Список показателей регионов</h3>
+						<p>Тело списка</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -17,16 +29,20 @@
 
 @section('scripts')
 	ymaps.ready(function () {
+		
 		var myMap = new ymaps.Map('map', {
 		center: [48.548043,66.904544],
 		zoom: 15
-		}, {
-		searchControlProvider: 'yandex#search'
+		}, 
+		
+		{
+			searchControlProvider: 'yandex#search'
 		}),
+		
 		clusterer = new ymaps.Clusterer({
-		preset: 'islands#invertedVioletClusterIcons',
-		clusterHideIconOnBalloonOpen: false,
-		geoObjectHideIconOnBalloonOpen: false
+			preset: 'islands#invertedVioletClusterIcons',
+			clusterHideIconOnBalloonOpen: false,
+			geoObjectHideIconOnBalloonOpen: false
 		});
 
 		/**
@@ -34,26 +50,30 @@
 		* для обработки событий всех геообъектов.
 		* Будем менять цвет иконок и кластеров при наведении.
 		*/
+		
 		clusterer.events
+		
 		// Можно слушать сразу несколько событий, указывая их имена в массиве.
+		
 		.add(['mouseenter', 'mouseleave'], function (e) {
-		var target = e.get('target'),
-		type = e.get('type');
-		if (typeof target.getGeoObjects != 'undefined') {
-		// Событие произошло на кластере.
-		if (type == 'mouseenter') {
-		target.options.set('preset', 'islands#invertedPinkClusterIcons');
-		} else {
-		target.options.set('preset', 'islands#invertedVioletClusterIcons');
-		}
-		} else {
-		// Событие произошло на геообъекте.
-		if (type == 'mouseenter') {
-		target.options.set('preset', 'islands#pinkIcon');
-		} else {
-		target.options.set('preset', 'islands#violetIcon');
-		}
-		}
+			var target = e.get('target'),
+			type = e.get('type');
+			if (typeof target.getGeoObjects != 'undefined') {
+			
+				// Событие произошло на кластере.
+				if (type == 'mouseenter') {
+					target.options.set('preset', 'islands#invertedPinkClusterIcons');
+				} else {
+					target.options.set('preset', 'islands#invertedVioletClusterIcons');
+				}
+			} else {
+				// Событие произошло на геообъекте.
+				if (type == 'mouseenter') {
+					target.options.set('preset', 'islands#pinkIcon');
+				} else {
+					target.options.set('preset', 'islands#violetIcon');
+				}
+			}
 		});
 
 		var getPointData = function (balloonContentBody, clusterCaption) {
@@ -64,36 +84,29 @@
 		},
 
 		getPointOptions = function () {
-		return {
-		preset: 'islands#violetIcon'
-		};
+			return {
+			preset: 'islands#violetIcon'
+			};
 		},
 
 		points = [
-			
-				{{--@foreach($businesses as $business)
-					[
-						{{ $business->latitude.','.$business->longitude }}
-					],
-				@endforeach--}}
 
-				@foreach($businesses as $business)
-		            {
-		                balloonContentBody: '{{ $business->name }}' + '<br><hr>' + '{!! $business->description !!}' + '<br><hr>',
-		                clusterCaption: "{{ $business->name }}",
-		                coordinates: [
-		                		{{ $business->latitude.','.$business->longitude }}
-		                	],
-		            },
+			@foreach($businesses as $business)
+		    	{
+		            balloonContentBody: '{{ $business->name }}' + '<br><hr>' + '{!! $business->description !!}' + '<br><hr>',
+
+		            clusterCaption: "{{ $business->name }}",
+
+		            coordinates: [
+		            	{{ $business->latitude.','.$business->longitude }}
+		            ],
+		    	},
 		       
-		        @endforeach
+		    @endforeach
 			
 		],
-		geoObjects = [];
 
-		{{--for(var i = 0, len = points.length; i < len; i++) {
-		geoObjects[i] = new ymaps.Placemark(points[i], getPointData(i), getPointOptions());
-		}--}}
+		geoObjects = [];
 
 		for(var i = 0, len = points.length; i < len; i++) {
 	      geoObjects[i] = new ymaps.Placemark(
@@ -107,7 +120,7 @@
 		myMap.geoObjects.add(clusterer);
 
 		myMap.setBounds(clusterer.getBounds(), {
-		checkZoomRange: true
+			checkZoomRange: true
 		});
 	});
 
