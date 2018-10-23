@@ -58,7 +58,7 @@
 
 		var getPointData = function (balloonContentBody, clusterCaption) {
 		    return {
-		    balloonContentBody: 'Компания <strong> ' + balloonContentBody + '</strong>',
+		    balloonContentBody: '<strong> Компания:  </strong>' + balloonContentBody,
 		    clusterCaption: 'метка <strong>' + clusterCaption + '</strong>'
 		    };
 		},
@@ -79,8 +79,8 @@
 
 				@foreach($businesses as $business)
 		            {
-		                balloonContentBody: '{{ $business->name }}',
-		                clusterCaption: '{{ $business->name }}',
+		                balloonContentBody: '{{ $business->name }}' + '<br><hr>' + '{!! $business->description !!}' + '<br><hr>',
+		                clusterCaption: "{{ $business->name }}",
 		                coordinates: [
 		                		{{ $business->latitude.','.$business->longitude }}
 		                	],
