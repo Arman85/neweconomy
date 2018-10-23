@@ -10,12 +10,12 @@
 				<h1 style="text-align: center;">Hello world</h1>
 				<!-- Tab links -->
 				<div class="tab">
-					<button class="tablinks active" onclick="openCity(event, 'map')">Карта</button>
-					<button class="tablinks" onclick="openCity(event, 'List')">Список</button>
+					<button class="tablinks active" onclick="openTab(event, 'map')">Карта</button>
+					<button class="tablinks" onclick="openTab(event, 'list')">Список</button>
 				</div>
 				<!-- Tab content -->
 				<div id="map" class="tabcontent" style="display: block"></div>
-				<div id="List" class="tabcontent">
+				<div id="list" class="tabcontent">
 					<div class="listContent">
 						<h3 class="third-title">Список показателей регионов</h3>
 						<p>Тело списка</p>
