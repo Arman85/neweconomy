@@ -18,7 +18,38 @@
 				<div id="list" class="tabcontent">
 					<div class="listContent">
 						<h3 class="third-title">Список показателей регионов</h3>
-						<p>Тело списка</p>
+						<select name="" id="">Год:
+							<option value="2018">2018</option>
+							<option value="2017">2017</option>
+						</select>
+						<div class="table-responsive">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>Эффективность научно-исследовательской деятельности для региона</th>
+										<th>Эффективность передачи знаний в экономику</th>
+										<th>Эффективность реализованных инновационных проектов</th>
+										<th>Инновационный потенциал 1</th>
+										<th>Инновационный потенциал 2</th>
+										<th>Инновационная активность 1</th>
+										<th>Инновационная активность 2</th>
+										<th>Регион</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Данные</td>
+										<td>Данные</td>
+										<td>Данные</td>
+										<td>Данные</td>
+										<td>Данные</td>
+										<td>Данные</td>
+										<td>Данные</td>
+										<td>Данные</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>

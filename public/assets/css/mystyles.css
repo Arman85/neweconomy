@@ -63,3 +63,8 @@ div.tab button.active {
 	color: #337ab7;
 }
 
+table.table th, table.table td {
+	padding: 1rem;
+	text-align: center;
+}
+
