@@ -30,6 +30,10 @@
 	transition: 0.3s;
 }
 
+.tablinks {
+	border-radius: 5px 5px 0 0;
+}
+
 .tab button:hover {
 	background-color: #ddd;
 }
@@ -40,13 +44,15 @@ div.tab button.active {
 	border-right: 1px solid #ccc;
 	border-bottom: 2px solid #fff;
 	border-left: 1px solid #ccc;
+	box-shadow: 0 5px 10px #ccc inset;
 	color: #555;
 }
 
 .tabcontent {
+	border: 2px solid #ccc;
+	border-radius: 5px;
 	display: none;
 	/*padding: 6px 12px;*/
-	border: 2px solid #ccc;
 	/*border-top: none;*/
 	margin-top: -2px;
 }
