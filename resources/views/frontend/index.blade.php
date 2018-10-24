@@ -18,10 +18,12 @@
 				<div id="list" class="tabcontent">
 					<div class="listContent">
 						<h3 class="third-title">Список показателей регионов</h3>
-						<select name="" id="">Год:
-							<option value="2018">2018</option>
-							<option value="2017">2017</option>
-						</select>
+						<label for="selectYear"><strong>Год:</strong>
+							<select name="selectYear" id="">Год:
+								<option value="2018">2018</option>
+								<option value="2017">2017</option>
+							</select>
+						</label>
 						<div class="table-responsive">
 							<table class="table table-bordered">
 								<thead>
