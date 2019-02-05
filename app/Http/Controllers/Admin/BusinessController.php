@@ -56,6 +56,7 @@ class BusinessController extends AppBaseController
     public function store(CreateBusinessRequest $request)
     {
         $input = $request->all();
+        // dd($input);
 
         $business = $this->businessRepository->create($input);
 

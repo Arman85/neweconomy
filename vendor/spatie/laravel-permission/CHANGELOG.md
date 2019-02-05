@@ -2,6 +2,69 @@
 
 All notable changes to `laravel-permission` will be documented in this file
 
+## 2.29.0 - 2018-12-15
+- Fix bound `saved` event from firing on all subsequent models when calling assignRole or givePermissionTo on unsaved models. However, it is preferable to save the model first, and then add roles/permissions after saving. See #971.
+
+## 2.28.2 - 2018-12-10
+- Use config settings for cache reset in migration stub
+
+## 2.28.1 - 2018-12-07
+- Remove use of Cache facade, for Lumen compatibility
+
+## 2.28.0 - 2018-11-30
+- Rename `getCacheKey` method in HasPermissions trait to `getPermissionCacheKey` for clearer specificity. 
+
+## 2.27.0 - 2018-11-21
+- Add ability to specify a cache driver for roles/permissions caching
+
+## 2.26.2 - 2018-11-20
+- Added the ability to reset the permissions cache via an Artisan command:
+`php artisan permission:cache-reset`
+
+## 2.26.1 - 2018-11-19
+- minor update to de-duplicate code overhead
+- numerous internal updates to cache tests infrastructure
+
+## 2.26.0 - 2018-11-19
+- Substantial speed increase by caching the associations between models and permissions
+
+### NOTES: ###
+The following changes are not "breaking", but worth making the updates to your app for consistency.
+
+1. Config file: The `config/permission.php` file changed to move cache-related settings into a sub-array. **You should review the changes and merge the updates into your own config file.** Specifically the `expiration_time` value has moved into a sub-array entry, and the old top-level entry is no longer used.
+See the master config file here: 
+https://github.com/spatie/laravel-permission/blob/master/config/permission.php
+
+2. Cache Resets: If your `app` or `tests` are clearing the cache by specifying the cache key, **it is better to use the built-in forgetCachedPermissions() method** so that it properly handles tagged cache entries. Here is the recommended change:
+```diff
+- app()['cache']->forget('spatie.permission.cache');
++ $this->app->make(\Spatie\Permission\PermissionRegistrar::class)->forgetCachedPermissions();
+```
+
+3. Also this is a good time to point out that now with v2.25.0 and v2.26.0 most permission-cache-reset scenarios may no longer be needed in your app, so it's worth reviewing those cases, as you may gain some app speed improvement by removing unnecessary cache resets.
+
+
+## 2.25.0 - 2018-11-07
+- A model's `roles` and `permissions` relations (respectively) are now automatically reloaded after an Assign/Remove role or Grant/Revoke of permissions. This means there's no longer a need to call `->fresh()` on the model if the only reason is to reload the role/permission relations. (That said, you may want to call it for other reasons.)
+- Added support for passing id to HasRole()
+
+## 2.24.0 - 2018-11-06
+- Fix operator used on RoleOrPermissionMiddleware, and avoid throwing PermissionDoesNotExist if invalid permission passed
+- Auto-reload model role relation after using AssignRole
+- Avoid empty permission creation when using the CreateRole command
+
+## 2.23.0 - 2018-10-15
+- Avoid unnecessary queries of user roles when fetching all permissions
+
+## 2.22.1 - 2018-10-15
+- Fix Lumen issue with Route helper added in 2.22.0
+
+## 2.22.0 - 2018-10-11
+- Added `Route::role()` and `Route::permission()` middleware helper functions
+- Added new `role_or_permission` middleware to allow specifying "or" combinations
+
+## 2.21.0 - 2018-09-29
+- Revert changes from 2.17.1 in order to support Lumen 5.7
 
 ## 2.20.0 - 2018-09-19
 - It will sync roles/permissions to models that are not persisted, by registering a `saved` callback. 

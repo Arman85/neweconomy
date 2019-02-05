@@ -18,36 +18,48 @@
 				<div id="list" class="tabcontent">
 					<div class="listContent">
 						<h3 class="third-title">Список показателей регионов</h3>
-							<label for="selectYear"><strong>Год:&nbsp;</strong></label>
-							<select name="year" id="selectYear">
-								<option value="2018">2018</option>
-								<option value="2017">2017</option>
-							</select>
+
+						<label for="selectYear"><strong>Год:&nbsp;</strong></label>
+						<select name="currentYear" id="selectYear">
+							@foreach (App\Models\Indicator::availableYears() as $year)
+								<option value="{{ $year }}" @if ($currentYear == $year) selected="selected" @endif>{{ $year }}</option>
+							@endforeach
+						</select>
+
+						<label for="selectRegionId"><strong>Регион:&nbsp;</strong></label>
+						<select name="currentRegionId" id="selectRegionId">
+							@foreach ([-1 => 'Все регионы'] + App\Models\Region::dropdown() as $id => $name)
+								<option value="{{ $id }}" @if ($currentRegionId == $id) selected="selected" @endif>{{ $name }}</option>
+							@endforeach
+						</select>
+
 						<div class="table-responsive">
 							<table class="table table-bordered">
 								<thead>
 									<tr>
-										<th>Эффективность научно-исследовательской деятельности для региона</th>
-										<th>Эффективность передачи знаний в экономику</th>
-										<th>Эффективность реализованных инновационных проектов</th>
-										<th>Инновационный потенциал 1</th>
-										<th>Инновационный потенциал 2</th>
-										<th>Инновационная активность 1</th>
-										<th>Инновационная активность 2</th>
+										<th>Компания</th>
 										<th>Регион</th>
+										<th>ЭФ - эффективность финансирования</th>
+										<th>ИФ - статьи с импакт фактором</th>
+										<th>П - количество патентов</th>
+										<th>АС - количество авторских свид.</th>
+										<th>И - количество созданных инноваций</th>
+										<th>З - сумма затрат</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>Данные</td>
-										<td>Данные</td>
-										<td>Данные</td>
-										<td>Данные</td>
-										<td>Данные</td>
-										<td>Данные</td>
-										<td>Данные</td>
-										<td>Данные</td>
-									</tr>
+									@foreach ($indicators as $indicator)
+										<tr>
+											<td>{{ $indicator->business->name }}</td>
+											<td>{{ $indicator->business->region->name }}</td>
+											<td>{{ $indicator->ef_fin }}</td>
+											<td>{{ $indicator->if }}</td>
+											<td>{{ $indicator->p }}</td>
+											<td>{{ $indicator->as }}</td>
+											<td>{{ $indicator->i }}</td>
+											<td>{{ $indicator->z }}</td>
+										</tr>
+									@endforeach
 								</tbody>
 							</table>
 						</div>
@@ -64,7 +76,7 @@
 		
 		var myMap = new ymaps.Map('map', {
 		center: [48.548043,66.904544],
-		zoom: 15
+		zoom: 6
 		}, 
 		
 		{
@@ -125,9 +137,9 @@
 
 			@foreach($businesses as $business)
 		    	{
-		            balloonContentBody: '{{ $business->name }}' + '<br><hr>' + '{!! $business->description !!}' + '<br><hr>',
+		            balloonContentBody: '{{ $business->name }}' + '<br><hr>' + '{!! $business->description !!}' + '<br><hr>' + 'ЭФ: ' + "{{ $business->indicators->first()->ef_fin }} (" + currentYear + ' г)',
 
-		            clusterCaption: "{{ $business->name }}",
+		            clusterCaption: '{{ $business->name }}',
 
 		            coordinates: [
 		            	{{ $business->latitude.','.$business->longitude }}
@@ -155,5 +167,30 @@
 			checkZoomRange: true
 		});
 	});
+
+
+	var currentYear = {{ $currentYear }};
+	var currentRegionId = {{ $currentRegionId }};
+	console.log(currentYear, currentRegionId);
+
+	// check year
+	$('#selectYear').change(function(e) {
+		console.log(this.value);
+
+		currentYear = this.value;
+		refreshPage();
+	});
+
+	// check region
+	$('#selectRegionId').change(function(e) {
+		console.log(this.value);
+
+		currentRegionId = this.value;
+		refreshPage();
+	});
+
+	function refreshPage() {
+		location.href = '/?currentYear=' + currentYear + '&currentRegionId=' + currentRegionId;
+	}
 
 @endsection

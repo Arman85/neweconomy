@@ -1,3 +1,9 @@
+<!-- Region Field -->
+<div class="form-group col-sm-4">
+    {!! Form::label('region', 'Region:') !!}
+    {!! Form::select('region_id', App\Models\Region::dropdown(), null, ['class' => 'form-control']) !!}
+</div>
+
 <!-- Name Field -->
 <div class="form-group col-sm-4">
     {!! Form::label('name', 'Name:') !!}

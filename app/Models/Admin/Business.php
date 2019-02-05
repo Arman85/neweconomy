@@ -26,6 +26,7 @@ class Business extends Model
 
 
     public $fillable = [
+        'region_id',
         'name',
         'latitude',
         'longitude',
@@ -38,6 +39,7 @@ class Business extends Model
      * @var array
      */
     protected $casts = [
+        'region_id' => 'number',
         'name' => 'string',
         'latitude' => 'string',
         'longitude' => 'string',
@@ -50,10 +52,14 @@ class Business extends Model
      * @var array
      */
     public static $rules = [
+        'region_id' => 'required',
         'name' => 'required',
         'latitude' => 'required',
         'longitude' => 'required'
     ];
 
     
+    public static function dropdown() {
+        return self::get(['id', 'name'])->pluck('name', 'id');
+    }
 }
