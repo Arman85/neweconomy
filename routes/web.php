@@ -20,8 +20,7 @@ Route::get('/', 'SiteController@index');
 
 Auth::routes();
 
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
-
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
 	Route::get('/', 'HomeController@index');
 
 	Route::get('businesses', ['as'=> 'admin.businesses.index', 'uses' => 'Admin\BusinessController@index']);
@@ -37,6 +36,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 	
 	Route::resource('indicators', 'IndicatorController');
 	Route::get('indicators/{indicator}/calculate', ['as' => 'indicators.calculate', 'uses' => 'IndicatorController@calculate']);
+
+	Route::resource('indicatorForRegions', 'IndicatorForRegionController');
+	Route::get('indicatorForRegions/{indicator}/calculate', ['as' => 'indicatorForRegions.calculate', 'uses' => 'IndicatorForRegionController@calculate']);
 });
 
 

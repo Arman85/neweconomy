@@ -10,3 +10,7 @@
     <a href="{!! route('indicators.index') !!}"><i class="fa fa-edit"></i><span>Indicators</span></a>
 </li>
 
+<li class="{{ Request::is('indicatorForRegions*') ? 'active' : '' }}">
+    <a href="{!! route('indicatorForRegions.index') !!}"><i class="fa fa-edit"></i><span>Indicator For Regions</span></a>
+</li>
+

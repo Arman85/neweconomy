@@ -4,34 +4,34 @@ namespace App\Models;
 
 use Eloquent as Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Business;
+use App\Models\Region;
 
 /**
- * Class Indicator
+ * Class IndicatorForRegion
  * @package App\Models
- * @version January 31, 2019, 7:10 am UTC
+ * @version March 14, 2019, 8:49 am UTC
  *
- * @property integer business_id
+ * @property integer region_id
  * @property integer year
  * @property integer if
  * @property integer p
  * @property integer as
  * @property integer i
- * @property integer z
+ * @property float z
  * @property float ef_fin
  */
-class Indicator extends Model
+class IndicatorForRegion extends Model
 {
     use SoftDeletes;
 
-    public $table = 'indicators';
+    public $table = 'indicator_for_regions';
     
 
     protected $dates = ['deleted_at'];
 
 
     public $fillable = [
-        'business_id',
+        'region_id',
         'year',
         'if',
         'p',
@@ -47,13 +47,13 @@ class Indicator extends Model
      * @var array
      */
     protected $casts = [
-        'business_id' => 'integer',
+        'region_id' => 'integer',
         'year' => 'integer',
         'if' => 'integer',
         'p' => 'integer',
         'as' => 'integer',
         'i' => 'integer',
-        'z' => 'integer',
+        'z' => 'float',
         'ef_fin' => 'float'
     ];
 
@@ -63,22 +63,22 @@ class Indicator extends Model
      * @var array
      */
     public static $rules = [
-        'business_id' => 'required|numeric',
+        'region_id' => 'required|numeric',
         'year' => 'required|numeric',
         'if' => 'required|numeric',
         'p' => 'required|numeric',
         'as' => 'required|numeric',
         'i' => 'required|numeric',
         'z' => 'required|numeric',
-        // 'ef_fin' => 'numeric'
+        // 'ef_fin' => 'required'
     ];
 
-    
-    public function business() {
-        return $this->belongsTo(Business::class);
+
+    public function region() {
+        return $this->belongsTo(Region::class);
     }
 
     public static function availableYears() {
         return self::orderBy('year', 'DESC')->distinct('year')->pluck('year')->toArray();
-    }
+    }    
 }

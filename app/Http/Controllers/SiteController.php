@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Business;
 use App\Models\Indicator;
+use App\Models\IndicatorForRegion;
 use Carbon\Carbon;
+use JavaScript;
 
 class SiteController extends Controller
 {
@@ -14,37 +16,50 @@ class SiteController extends Controller
     public function index(Request $request)
     {
     	// filter data
-    	$currentYear = isset($request->currentYear) ? $request->currentYear : Carbon::now()->year;
+    	$currentYear = isset($request->currentYear) ? $request->currentYear : IndicatorForRegion::availableYears()[0];
     	$currentRegionId = isset($request->currentRegionId) ? $request->currentRegionId : -1;
 
     	// businesses for currentYear
-    	$businesses = Business::whereHas('indicators', function($q) use ($currentYear) {
+    	$businesses = Business::with(['indicators' => function($q) use ($currentYear) {
+            $q->where('year', $currentYear);
+        }])->whereHas('indicators', function($q) use ($currentYear) {
     		$q->where('year', $currentYear);
     	})->get();
-    	//$businesses = Business::all();
+    	// dd([$currentYear, $businesses->toArray()]);
 
     	// get indicators with business info
     	$query = Indicator::with(['business', 'business.region']);
-
-    	// get for year or current?
     	$query->where('year', $currentYear);
-
-    	// get for region or all?
     	if ($currentRegionId != -1)  {
     		$query->whereHas('business', function ($q) use ($currentRegionId) {
     			$q->where('region_id', $currentRegionId);
     		});
     	}
-    	
-    	// only filled ef_fins
-    	$query->where('ef_fin', '!=', 0.0);
-
-    	// get
+    	$query->where('ef_fin', '!=', null);
     	$indicators = $query->get();
     	// dd($indicators->toArray());
 
+        // get indicators for regions
+        $query = IndicatorForRegion::with(['region']);
+        $query->where('year', $currentYear);
+        if ($currentRegionId != -1) {
+            $query->where('region_id', $currentRegionId);
+        }
+        $query->where('ef_fin', '!=', null);
+        $indicatorForRegions = $query->get();
 
-    	return view('frontend.index', compact('businesses', 'indicators', 'currentYear', 'currentRegionId'));
+        $indicatorsMap = [];
+        foreach ($indicatorForRegions as $indicator) {
+            $indicatorsMap[$indicator->region->iso] = $indicator->ef_fin;
+        }
+        // dd($indicatorForRegions->toArray());
+
+        JavaScript::put([
+            'regionIndicators' => $indicatorForRegions->toArray(),
+            'indicatorsMap' => $indicatorsMap
+        ]);
+
+    	return view('frontend.index', compact('businesses', 'indicators', 'indicatorForRegions', 'currentYear', 'currentRegionId'));
     }
     
 }

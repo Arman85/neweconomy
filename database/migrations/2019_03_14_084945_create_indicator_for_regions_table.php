@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateIndicatorsTable extends Migration
+class CreateIndicatorForRegionsTable extends Migration
 {
 
     /**
@@ -13,9 +13,9 @@ class CreateIndicatorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('indicators', function (Blueprint $table) {
+        Schema::create('indicator_for_regions', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('business_id')->unsigned();
+            $table->integer('region_id')->unsigned();
             $table->integer('year')->unsigned();
             $table->integer('if')->unsigned();
             $table->integer('p')->unsigned();
@@ -25,8 +25,7 @@ class CreateIndicatorsTable extends Migration
             $table->float('ef_fin')->nullable()->default(null);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('business_id')->references('id')->on('businesses');
+            $table->foreign('region_id')->references('id')->on('regions');
         });
     }
 
@@ -37,6 +36,6 @@ class CreateIndicatorsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('indicators');
+        Schema::drop('indicator_for_regions');
     }
 }

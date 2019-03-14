@@ -33,6 +33,7 @@ class ComposerStaticInita27164f592ff4ce2407d1a6b37c61e3f
         '0ccdf99b8f62f02c52cba55802e0c2e7' => __DIR__ . '/..' . '/zircote/swagger-php/src/functions.php',
         '0d8253363903f0ac7b0978dcde4e28a0' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/helpers.php',
         'a28599dc506da421718fad75955a4b9d' => __DIR__ . '/..' . '/infyomlabs/laravel-generator/src/helpers.php',
+        '6292c1671f9440c89e0af20a0f78754a' => __DIR__ . '/..' . '/laracasts/utilities/src/helpers.php',
         'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
         '377b22b161c09ed6e5152de788ca020a' => __DIR__ . '/..' . '/spatie/laravel-permission/src/helpers.php',
     );
@@ -114,6 +115,7 @@ class ComposerStaticInita27164f592ff4ce2407d1a6b37c61e3f
             'League\\Flysystem\\' => 17,
             'Lcobucci\\JWT\\' => 13,
             'Laravel\\Tinker\\' => 15,
+            'Laracasts\\Utilities\\JavaScript\\' => 31,
         ),
         'K' => 
         array (
@@ -345,6 +347,10 @@ class ComposerStaticInita27164f592ff4ce2407d1a6b37c61e3f
         array (
             0 => __DIR__ . '/..' . '/laravel/tinker/src',
         ),
+        'Laracasts\\Utilities\\JavaScript\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laracasts/utilities/src',
+        ),
         'Kalnoy\\Nestedset\\' => 
         array (
             0 => __DIR__ . '/..' . '/kalnoy/nestedset/src',
@@ -520,6 +526,7 @@ class ComposerStaticInita27164f592ff4ce2407d1a6b37c61e3f
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\IndicatorController' => __DIR__ . '/../..' . '/app/Http/Controllers/IndicatorController.php',
+        'App\\Http\\Controllers\\IndicatorForRegionController' => __DIR__ . '/../..' . '/app/Http/Controllers/IndicatorForRegionController.php',
         'App\\Http\\Controllers\\RegionController' => __DIR__ . '/../..' . '/app/Http/Controllers/RegionController.php',
         'App\\Http\\Controllers\\SiteController' => __DIR__ . '/../..' . '/app/Http/Controllers/SiteController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
@@ -532,12 +539,15 @@ class ComposerStaticInita27164f592ff4ce2407d1a6b37c61e3f
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Requests\\Admin\\CreateBusinessRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Admin/CreateBusinessRequest.php',
         'App\\Http\\Requests\\Admin\\UpdateBusinessRequest' => __DIR__ . '/../..' . '/app/Http/Requests/Admin/UpdateBusinessRequest.php',
+        'App\\Http\\Requests\\CreateIndicatorForRegionRequest' => __DIR__ . '/../..' . '/app/Http/Requests/CreateIndicatorForRegionRequest.php',
         'App\\Http\\Requests\\CreateIndicatorRequest' => __DIR__ . '/../..' . '/app/Http/Requests/CreateIndicatorRequest.php',
         'App\\Http\\Requests\\CreateRegionRequest' => __DIR__ . '/../..' . '/app/Http/Requests/CreateRegionRequest.php',
+        'App\\Http\\Requests\\UpdateIndicatorForRegionRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateIndicatorForRegionRequest.php',
         'App\\Http\\Requests\\UpdateIndicatorRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateIndicatorRequest.php',
         'App\\Http\\Requests\\UpdateRegionRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateRegionRequest.php',
         'App\\Models\\Admin\\Business' => __DIR__ . '/../..' . '/app/Models/Admin/Business.php',
         'App\\Models\\Indicator' => __DIR__ . '/../..' . '/app/Models/Indicator.php',
+        'App\\Models\\IndicatorForRegion' => __DIR__ . '/../..' . '/app/Models/IndicatorForRegion.php',
         'App\\Models\\Region' => __DIR__ . '/../..' . '/app/Models/Region.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
@@ -545,6 +555,7 @@ class ComposerStaticInita27164f592ff4ce2407d1a6b37c61e3f
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
         'App\\Repositories\\Admin\\BusinessRepository' => __DIR__ . '/../..' . '/app/Repositories/Admin/BusinessRepository.php',
+        'App\\Repositories\\IndicatorForRegionRepository' => __DIR__ . '/../..' . '/app/Repositories/IndicatorForRegionRepository.php',
         'App\\Repositories\\IndicatorRepository' => __DIR__ . '/../..' . '/app/Repositories/IndicatorRepository.php',
         'App\\Repositories\\RegionRepository' => __DIR__ . '/../..' . '/app/Repositories/RegionRepository.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
@@ -2466,6 +2477,17 @@ class ComposerStaticInita27164f592ff4ce2407d1a6b37c61e3f
         'Laracasts\\Flash\\Message' => __DIR__ . '/..' . '/laracasts/flash/src/Laracasts/Flash/Message.php',
         'Laracasts\\Flash\\OverlayMessage' => __DIR__ . '/..' . '/laracasts/flash/src/Laracasts/Flash/OverlayMessage.php',
         'Laracasts\\Flash\\SessionStore' => __DIR__ . '/..' . '/laracasts/flash/src/Laracasts/Flash/SessionStore.php',
+        'Laracasts\\Utilities\\JavaScript\\JavaScriptFacade' => __DIR__ . '/..' . '/laracasts/utilities/src/JavaScriptFacade.php',
+        'Laracasts\\Utilities\\JavaScript\\JavaScriptServiceProvider' => __DIR__ . '/..' . '/laracasts/utilities/src/JavaScriptServiceProvider.php',
+        'Laracasts\\Utilities\\JavaScript\\LaravelViewBinder' => __DIR__ . '/..' . '/laracasts/utilities/src/LaravelViewBinder.php',
+        'Laracasts\\Utilities\\JavaScript\\Transformers\\ArrayTransformer' => __DIR__ . '/..' . '/laracasts/utilities/src/Transformers/ArrayTransformer.php',
+        'Laracasts\\Utilities\\JavaScript\\Transformers\\BooleanTransformer' => __DIR__ . '/..' . '/laracasts/utilities/src/Transformers/BooleanTransformer.php',
+        'Laracasts\\Utilities\\JavaScript\\Transformers\\NullTransformer' => __DIR__ . '/..' . '/laracasts/utilities/src/Transformers/NullTransformer.php',
+        'Laracasts\\Utilities\\JavaScript\\Transformers\\NumericTransformer' => __DIR__ . '/..' . '/laracasts/utilities/src/Transformers/NumericTransformer.php',
+        'Laracasts\\Utilities\\JavaScript\\Transformers\\ObjectTransformer' => __DIR__ . '/..' . '/laracasts/utilities/src/Transformers/ObjectTransformer.php',
+        'Laracasts\\Utilities\\JavaScript\\Transformers\\StringTransformer' => __DIR__ . '/..' . '/laracasts/utilities/src/Transformers/StringTransformer.php',
+        'Laracasts\\Utilities\\JavaScript\\Transformers\\Transformer' => __DIR__ . '/..' . '/laracasts/utilities/src/Transformers/Transformer.php',
+        'Laracasts\\Utilities\\JavaScript\\ViewBinder' => __DIR__ . '/..' . '/laracasts/utilities/src/ViewBinder.php',
         'Laravel\\Tinker\\ClassAliasAutoloader' => __DIR__ . '/..' . '/laravel/tinker/src/ClassAliasAutoloader.php',
         'Laravel\\Tinker\\Console\\TinkerCommand' => __DIR__ . '/..' . '/laravel/tinker/src/Console/TinkerCommand.php',
         'Laravel\\Tinker\\TinkerCaster' => __DIR__ . '/..' . '/laravel/tinker/src/TinkerCaster.php',
