@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Business;
 use App\Models\Indicator;
 use App\Models\IndicatorForRegion;
+use App\Models\Recommendation;
 use Carbon\Carbon;
 use JavaScript;
 
@@ -54,9 +55,15 @@ class SiteController extends Controller
         }
         // dd($indicatorForRegions->toArray());
 
+        $recommendations = [];
+        foreach (Recommendation::get() as $rec) {
+            $recommendations[$rec->type] = $rec->desc;
+        }
+
         JavaScript::put([
             'regionIndicators' => $indicatorForRegions->toArray(),
-            'indicatorsMap' => $indicatorsMap
+            'indicatorsMap' => $indicatorsMap,
+            'recommendations' => $recommendations
         ]);
 
     	return view('frontend.index', compact('businesses', 'indicators', 'indicatorForRegions', 'currentYear', 'currentRegionId'));

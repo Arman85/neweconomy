@@ -42,3 +42,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
 });
 
 
+
+
+Route::resource('recommendations', 'RecommendationController');

@@ -202,17 +202,22 @@
 			//console.log(indicator.region.lat);
 
 			var className = 'redStretchyIcon';
+			var status = 'red';
 			if (indicator.ef_fin == 1.0) {
-				className = 'yellowStretchyIcon';	
+				className = 'yellowStretchyIcon';
+				status = 'yellow';	
 			} else if (indicator.ef_fin > 1.0) {
 				className = 'greenStretchyIcon';
+				status = 'green';
 			}
+
+			console.log(recommendations[status], status, recommendations);
 
         	var marker = new ymaps.Placemark(
         		[indicator.region.lat, indicator.region.lng], 
         		{
         			iconContent: indicator.ef_fin,
-        			balloonContent: indicator.region.name
+        			balloonContent: indicator.region.name + '<hr>' + recommendations[status]
         		}, 
         		{
         			preset: 'islands#' + className, 	
