@@ -34,7 +34,7 @@ class IndicatorController extends AppBaseController
         $this->indicatorRepository->pushCriteria(new RequestCriteria($request));
         // $indicators = $this->indicatorRepository->all();
         $indicators = Indicator::with('business')->orderBy('year', 'desc')->get();
-
+        
         return view('indicators.index')
             ->with('indicators', $indicators);
     }

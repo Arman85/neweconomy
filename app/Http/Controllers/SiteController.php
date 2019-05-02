@@ -38,7 +38,7 @@ class SiteController extends Controller
     	}
     	$query->where('ef_fin', '!=', null);
     	$indicators = $query->get();
-    	// dd($indicators->toArray());
+    	//dd($indicators);
 
         // get indicators for regions
         $query = IndicatorForRegion::with(['region']);

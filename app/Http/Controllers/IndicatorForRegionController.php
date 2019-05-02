@@ -13,6 +13,8 @@ use Response;
 use App\Models\IndicatorForRegion;
 use DB;
 
+use App\Models\Region;
+
 class IndicatorForRegionController extends AppBaseController
 {
     /** @var  IndicatorForRegionRepository */
@@ -47,6 +49,7 @@ class IndicatorForRegionController extends AppBaseController
     public function create(Request $request)
     {
         $regionId = $request->get('region_id');
+    
         return view('indicator_for_regions.create', compact('regionId'));
     }
 
