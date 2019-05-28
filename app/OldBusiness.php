@@ -9,7 +9,7 @@ use App\Models\Region;
 class Business extends Model
 {
     //
-    protected $fillable = ['region_id', 'name', 'latitude', 'longitude'];
+    protected $fillable = ['region_id', 'name', 'latitude', 'longitude', 'description', 'cycle', 'assets'];
 
     /**
      * Validation rules
@@ -21,6 +21,9 @@ class Business extends Model
         'name' => 'required',
         'latitude' => 'required',
         'longitude' => 'required',
+        'description' => 'sometimes',
+        'cycle' => 'required',
+        'assets' => 'required'
     ];
 
     public function indicators()
@@ -32,4 +35,6 @@ class Business extends Model
     {
         return $this->belongsTo(Region::class);
     }
+
+    
 }

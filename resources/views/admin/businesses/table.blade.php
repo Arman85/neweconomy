@@ -11,7 +11,11 @@
     <tbody>
     @foreach($businesses as $business)
         <tr>
-            <td>{!! $business->name !!}</td>
+            <td>
+                {!! $business->name !!}, {!! $business->cycle !!}, {!! $business->assets !!}
+                <br>
+                <span style="font-size: smaller">({!! App\Models\Admin\Business::getCAMatrix($business->cycle, $business->assets) !!})</span>
+            </td>
             <td>{!! $business->latitude !!}</td>
             <td>{!! $business->longitude !!}</td>
             <td>{!! $business->description !!}</td>

@@ -95,6 +95,7 @@ class BusinessController extends AppBaseController
     public function edit($id)
     {
         $business = $this->businessRepository->findWithoutFail($id);
+        // dd($business->toArray());
 
         if (empty($business)) {
             Flash::error('Business not found');
@@ -115,6 +116,7 @@ class BusinessController extends AppBaseController
      */
     public function update($id, UpdateBusinessRequest $request)
     {
+        // dd($request->all());
         $business = $this->businessRepository->findWithoutFail($id);
 
         if (empty($business)) {
@@ -123,6 +125,7 @@ class BusinessController extends AppBaseController
             return redirect(route('admin.businesses.index'));
         }
 
+        // 
         $business = $this->businessRepository->update($request->all(), $id);
 
         Flash::success('Business updated successfully.');

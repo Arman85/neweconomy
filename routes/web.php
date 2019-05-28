@@ -18,7 +18,9 @@
 
 Route::get('/', 'SiteController@index');
 
-Auth::routes();
+Auth::routes(['register' => false]);
+// TODO: remove register route
+
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
 	Route::get('/', 'HomeController@index');

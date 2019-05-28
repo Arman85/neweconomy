@@ -11,6 +11,8 @@
        <div class="box box-primary">
            <div class="box-body">
                <div class="row">
+                <?php //dd($business); ?>
+
                    {!! Form::model($business, ['route' => ['admin.businesses.update', $business->id], 'method' => 'patch']) !!}
 
                         @include('admin.businesses.fields')
